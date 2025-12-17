@@ -1,23 +1,30 @@
-import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/layout/Layout';
+import Home from './pages/Home';
+import Industries from './pages/Industries';
+import Solutions from './pages/Solutions';
+import Patterns from './pages/Patterns';
+import Resources from './pages/Resources';
+import Careers from './pages/Careers';
+import About from './pages/About';
 
 function App() {
   return (
-    <div className="App">
+    <Layout>
       <Routes>
-        <Route path="/" element={
-          <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-            <div className="text-center">
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">
-                Admin Dashboard
-              </h1>
-            </div>
-          </div>
-        } />
+        <Route path="/" element={<Home />} />
+        <Route path="/industries" element={<Industries />} />
+        <Route path="/solutions" element={<Solutions />} />
+        <Route path="/patterns" element={<Patterns />} />
+        <Route path="/resources" element={<Resources />} />
+        <Route path="/careers" element={<Careers />} />
+        <Route path="/about" element={<About />} />
       </Routes>
-    </div>
-  )
+    </Layout>
+  );
 }
 
-export default App
+export default App;
+
 
