@@ -5,6 +5,7 @@ import FeatureCard from '../components/ui/FeatureCard';
 import PlaybookCard from '../components/ui/PlaybookCard';
 import Button from '../components/ui/Button';
 import ContactForm from '../components/ui/ContactForm';
+import NeuralNetwork from '../components/ui/NeuralNetwork';
 
 const Home = () => {
     // Service icons (using simple SVG)
@@ -63,6 +64,7 @@ const Home = () => {
             link: '/solutions#prod',
             icon: <CodeIcon />,
             image: '/images/digital_product_engineering_1765953702630.png',
+            tags: ['Next.js', 'React Native', 'Edge/SSR', 'Web Vitals'],
         },
         {
             title: 'Cloud & DevOps (SRE)',
@@ -70,6 +72,7 @@ const Home = () => {
             link: '/solutions#sre',
             icon: <CloudIcon />,
             image: '/images/cloud_devops_1765953724289.png',
+            tags: ['Terraform', 'EKS/GKE', 'ArgoCD', 'OpenTelemetry'],
         },
         {
             title: 'Data Engineering & Analytics',
@@ -77,6 +80,7 @@ const Home = () => {
             link: '/solutions#data',
             icon: <DataIcon />,
             image: '/images/data_analytics_1765953749508.png',
+            tags: ['dbt', 'Spark', 'Delta/Lake', 'Superset'],
         },
         {
             title: 'Enterprise Platforms',
@@ -84,6 +88,7 @@ const Home = () => {
             link: '/solutions#platforms',
             icon: <PlatformIcon />,
             image: '/images/enterprise_platforms_1765953784664.png',
+            tags: ['Workday', 'Salesforce', 'Mulesoft', 'Security'],
         },
         {
             title: 'AI & Machine Learning',
@@ -91,6 +96,7 @@ const Home = () => {
             link: '/solutions#ai',
             icon: <AIIcon />,
             image: '/images/ai_machine_learning_1765953810878.png',
+            tags: ['RAG', 'LLM Eval', 'Vector DB', 'Guardrails'],
         },
     ];
 
@@ -139,20 +145,10 @@ const Home = () => {
         <div className="min-h-screen">
             {/* Hero Section */}
             <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-                {/* Hero Background Image */}
-                <div className="absolute inset-0">
-                    <img
-                        src="/images/hero_background_1765953668544.png"
-                        alt="AI Neural Network Background"
-                        className="w-full h-full object-cover opacity-30"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
-                </div>
-
-                {/* Animated Background Elements */}
-                <div className="absolute inset-0 overflow-hidden grid-pattern">
-                    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-float"></div>
-                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float animation-delay-400"></div>
+                {/* Neural Network Background */}
+                <div className="absolute inset-0 bg-black">
+                    <NeuralNetwork />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"></div>
                 </div>
 
                 <div className="relative section-container text-center">
@@ -176,10 +172,7 @@ const Home = () => {
                             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
                         >
                             <Button variant="primary">
-                                Get Started
-                            </Button>
-                            <Button variant="secondary">
-                                View Solutions
+                                Why Skyveon? →
                             </Button>
                         </motion.div>
                     </motion.div>
@@ -282,6 +275,23 @@ const Home = () => {
                         />
                     ))}
                 </div>
+            </section>
+
+            {/* Bottom Tagline Section */}
+            <section className="section-container bg-dark-900 text-center">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                >
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+                        The <span className="gradient-text">Cross-Stack Technology Company</span>
+                    </h2>
+                    <p className="text-xl md:text-2xl text-gray-400">
+                        Cloud Data Platforms Workday Salesforce Pragmatic AI
+                    </p>
+                </motion.div>
             </section>
 
             {/* Contact Section */}

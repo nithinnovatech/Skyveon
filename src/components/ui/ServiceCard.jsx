@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-const ServiceCard = ({ title, description, link, icon, image, delay = 0 }) => {
+const ServiceCard = ({ title, description, link, icon, image, tags, delay = 0 }) => {
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -40,8 +40,18 @@ const ServiceCard = ({ title, description, link, icon, image, delay = 0 }) => {
                         <p className="text-gray-400 text-sm md:text-base mb-4 flex-grow">
                             {description}
                         </p>
+                        {tags && tags.length > 0 && (
+                            <div className="flex flex-wrap gap-2 mb-4">
+                                {tags.map((tag, index) => (
+                                    <span key={index} className="text-xs text-gray-500">
+                                        {tag}
+                                        {index < tags.length - 1 && ' |'}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
                         <div className="link-arrow text-sm md:text-base group">
-                            Explore
+                            Explore →
                         </div>
                     </div>
                 </div>

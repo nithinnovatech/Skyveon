@@ -1,81 +1,35 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Solutions = () => {
-    const location = useLocation();
+    const [openIndex, setOpenIndex] = useState(null);
 
     const solutions = [
         {
-            id: 'prod',
             title: 'Digital Product Engineering',
-            description: 'Build exceptional digital experiences that users love.',
-            details: [
-                'Modern web and mobile applications',
-                'Design systems and component libraries',
-                'API-first architecture',
-                'Performance optimization',
-                'Progressive web apps (PWA)',
-            ],
+            description: 'Web and mobile experiences with robust, secure APIs.',
         },
         {
-            id: 'sre',
             title: 'Cloud & DevOps (SRE)',
-            description: 'Infrastructure that scales with your business.',
-            details: [
-                'Infrastructure as Code (IaC)',
-                'CI/CD pipeline automation',
-                'Container orchestration (Kubernetes)',
-                'Observability and monitoring',
-                'Site reliability engineering',
-            ],
+            description: 'Infrastructure as code, CI/CD, observability, and reliability at scale.',
         },
         {
-            id: 'data',
             title: 'Data Engineering & Analytics',
-            description: 'Turn data into actionable insights.',
-            details: [
-                'Data pipeline architecture',
-                'Data lakehouse implementation',
-                'Real-time analytics',
-                'Business intelligence dashboards',
-                'Data governance and quality',
-            ],
+            description: 'Clean pipelines, modeled warehouses/lakes, semantic layers, dashboards.',
         },
         {
-            id: 'platforms',
             title: 'Enterprise Platforms',
-            description: 'Seamless integration of enterprise systems.',
-            details: [
-                'Workday HCM and Financial Management',
-                'Salesforce implementation and customization',
-                'System integration and APIs',
-                'Custom workflow automation',
-                'Enterprise data migration',
-            ],
+            description: 'Workday HCM/Finance and Salesforce clouds, integrated end-to-end.',
         },
         {
-            id: 'ai',
             title: 'AI & Machine Learning',
-            description: 'Intelligent systems that drive business value.',
-            details: [
-                'Private LLM deployment',
-                'ML model development and deployment',
-                'Predictive analytics',
-                'Natural language processing',
-                'Computer vision solutions',
-            ],
+            description: 'Automation, private LLM assistants, forecasting & anomaly detection.',
         },
     ];
 
-    React.useEffect(() => {
-        if (location.hash) {
-            const element = document.getElementById(location.hash.substring(1));
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    }, [location]);
+    const toggleAccordion = (index) => {
+        setOpenIndex(openIndex === index ? null : index);
+    };
 
     return (
         <div className="min-h-screen bg-dark-900">
@@ -87,54 +41,58 @@ const Solutions = () => {
                     transition={{ duration: 0.6 }}
                 >
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                        Our <span className="gradient-text">Solutions</span>
+                        Solutions that Deliver <span className="gradient-text">Outcomes</span>
                     </h1>
                     <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
-                        Comprehensive technology solutions designed to accelerate your digital transformation
-                        and drive measurable business outcomes.
+                        Outcome-linked delivery across products, platforms, cloud, data, and AI — measured against cycle time, reliability, accuracy, and unit cost.
                     </p>
                 </motion.div>
             </section>
 
-            {/* Solutions */}
+            {/* Accordion Solutions */}
             <section className="section-container">
-                <div className="space-y-12 md:space-y-16">
+                <div className="max-w-4xl mx-auto space-y-4">
                     {solutions.map((solution, index) => (
                         <motion.div
-                            key={solution.id}
-                            id={solution.id}
+                            key={index}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
-                            className="glass rounded-2xl p-8 md:p-12 scroll-mt-24"
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            className="border border-white/10 rounded-lg overflow-hidden bg-dark-800/50"
                         >
-                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                                {solution.title}
-                            </h2>
-                            <p className="text-lg md:text-xl text-gray-300 mb-6">
-                                {solution.description}
-                            </p>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {solution.details.map((detail) => (
-                                    <div key={detail} className="flex items-start gap-3">
-                                        <svg
-                                            className="w-6 h-6 text-blue-400 flex-shrink-0 mt-0.5"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={2}
-                                                d="M5 13l4 4L19 7"
-                                            />
-                                        </svg>
-                                        <span className="text-gray-400">{detail}</span>
-                                    </div>
-                                ))}
-                            </div>
+                            <button
+                                onClick={() => toggleAccordion(index)}
+                                className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-white/5 transition-colors"
+                            >
+                                <div className="flex-1">
+                                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
+                                        {solution.title}
+                                    </h3>
+                                    <p className="text-gray-400 text-sm md:text-base">
+                                        {solution.description}
+                                    </p>
+                                </div>
+                                <div className="ml-4 text-2xl text-gray-400">
+                                    {openIndex === index ? '−' : '+'}
+                                </div>
+                            </button>
+                            <AnimatePresence>
+                                {openIndex === index && (
+                                    <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: 'auto', opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="overflow-hidden"
+                                    >
+                                        <div className="px-6 pb-5 text-gray-400">
+                                            {/* Expanded content can be added here if needed */}
+                                            <p className="text-sm">Additional details about {solution.title}.</p>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </motion.div>
                     ))}
                 </div>

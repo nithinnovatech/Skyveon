@@ -1,40 +1,39 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import PlaybookCard from '../components/ui/PlaybookCard';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Patterns = () => {
-    const patterns = [
+    const [openIndex, setOpenIndex] = useState(0); // Cloud foundations open by default
+
+    const patternGroups = [
         {
-            title: 'Cloud Foundations',
-            description: 'Regulated-ready landing zones, CI/CD, and zero-trust guardrails.',
-            details: 'Enterprise-grade cloud infrastructure patterns with security and compliance built-in.',
+            title: 'Cloud foundations',
+            content: {
+                patternTitle: 'Zero-Trust Remote Access',
+                description: 'Identity-aware access to internal apps and services—no legacy VPN, no flat network risk.',
+                points: [
+                    'IdP + device posture',
+                    'mTLS / IAP',
+                    'Just-in-time access',
+                ],
+            },
         },
         {
-            title: 'Lakehouse + Analytics',
-            description: 'Semantic layers, lineage, freshness SLAs, and exec dashboards.',
-            details: 'Modern data architecture combining the best of data lakes and warehouses.',
+            title: 'Data & analytics',
+            content: null,
         },
         {
-            title: 'Private AI Assistants',
-            description: 'Privacy-first copilots with guardrails, evals, and safe rollback.',
-            details: 'Secure AI deployment patterns for enterprise environments.',
+            title: 'Platforms & product',
+            content: null,
         },
         {
-            title: 'Cross-Stack Integration',
-            description: 'End-to-end orchestration across cloud, data, AI, and platforms.',
-            details: 'Seamless integration patterns across your entire technology stack.',
-        },
-        {
-            title: 'Microservices Architecture',
-            description: 'Scalable, resilient service mesh with observability.',
-            details: 'Battle-tested patterns for building distributed systems.',
-        },
-        {
-            title: 'Event-Driven Systems',
-            description: 'Real-time data streaming and event processing at scale.',
-            details: 'Patterns for building reactive, event-driven architectures.',
+            title: 'Pragmatic AI',
+            content: null,
         },
     ];
+
+    const toggleAccordion = (index) => {
+        setOpenIndex(openIndex === index ? null : index);
+    };
 
     return (
         <div className="min-h-screen bg-dark-900">
@@ -49,44 +48,81 @@ const Patterns = () => {
                         Solution <span className="gradient-text">Patterns</span>
                     </h1>
                     <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
-                        Proven architectural patterns and best practices from hundreds of successful
-                        enterprise implementations.
+                        Reference designs and playbooks we use to deliver fast—without compromising reliability, security, or cost.
                     </p>
                 </motion.div>
             </section>
 
-            {/* Patterns Grid */}
+            {/* Accordion Pattern Groups */}
             <section className="section-container">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12">
-                    {patterns.slice(0, 4).map((pattern, index) => (
-                        <PlaybookCard
-                            key={pattern.title}
-                            title={pattern.title}
-                            description={pattern.description}
-                            delay={index * 0.1}
-                        />
-                    ))}
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                    {patterns.slice(4).map((pattern, index) => (
+                <div className="max-w-4xl mx-auto space-y-4">
+                    {patternGroups.map((group, index) => (
                         <motion.div
-                            key={pattern.title}
+                            key={index}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
-                            className="card-hover"
+                            className="border border-white/10 rounded-lg overflow-hidden bg-dark-800/50"
                         >
-                            <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
-                                {pattern.title}
-                            </h3>
-                            <p className="text-gray-400 text-sm md:text-base mb-3">
-                                {pattern.description}
-                            </p>
-                            <p className="text-gray-500 text-sm">
-                                {pattern.details}
-                            </p>
+                            <button
+                                onClick={() => toggleAccordion(index)}
+                                className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-white/5 transition-colors"
+                            >
+                                <h3 className="text-xl md:text-2xl font-bold text-white">
+                                    {group.title}
+                                </h3>
+                                <div className="ml-4 text-2xl text-gray-400">
+                                    {openIndex === index ? '−' : '+'}
+                                </div>
+                            </button>
+                            <AnimatePresence>
+                                {openIndex === index && group.content && (
+                                    <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: 'auto', opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="overflow-hidden"
+                                    >
+                                        <div className="px-6 pb-6 border-t border-white/10">
+                                            <div className="pt-6">
+                                                <h4 className="text-lg md:text-xl font-bold text-white mb-3">
+                                                    {group.content.patternTitle}
+                                                </h4>
+                                                <p className="text-gray-400 mb-4">
+                                                    {group.content.description}
+                                                </p>
+                                                <ul className="space-y-2 mb-6">
+                                                    {group.content.points.map((point, idx) => (
+                                                        <li key={idx} className="text-gray-400 flex items-start">
+                                                            <span className="text-blue-400 mr-2">•</span>
+                                                            {point}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                                <div className="flex flex-col sm:flex-row gap-4 items-start">
+                                                    <a
+                                                        href="#contact"
+                                                        className="text-blue-400 hover:text-blue-300 transition-colors"
+                                                    >
+                                                        Read Pattern Brief →Contact
+                                                    </a>
+                                                </div>
+                                                <p className="text-gray-500 text-sm mt-4">
+                                                    Or email us at{' '}
+                                                    <a
+                                                        href="mailto:info@skyveon.ai"
+                                                        className="text-blue-400 hover:text-blue-300 transition-colors"
+                                                    >
+                                                        info@skyveon.ai
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </motion.div>
                     ))}
                 </div>

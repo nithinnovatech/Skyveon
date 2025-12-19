@@ -1,33 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const Resources = () => {
+    const [activeFilter, setActiveFilter] = useState('All');
+
+    const filters = ['All', 'Cloud', 'Data', 'Platforms', 'Workday/Salesforce', 'Pragmatic AI'];
+
     const resources = [
         {
-            category: 'Case Studies',
-            items: [
-                { title: 'Fortune 500 Cloud Migration', type: 'Case Study' },
-                { title: 'AI-Powered Analytics Platform', type: 'Case Study' },
-                { title: 'Enterprise Workday Implementation', type: 'Case Study' },
-            ],
+            meta: 'brief•platforms•8 min read',
+            title: 'SLOs that matter: picking the right reliability signals',
+            description: 'A practical primer on SLOs/SLA vs error budgets with examples that influence real product decisions.',
+            category: 'brief Platforms',
+            filter: 'Platforms',
         },
         {
-            category: 'Whitepapers',
-            items: [
-                { title: 'Modern Data Architecture Guide', type: 'Whitepaper' },
-                { title: 'Cloud Security Best Practices', type: 'Whitepaper' },
-                { title: 'AI Governance Framework', type: 'Whitepaper' },
-            ],
+            meta: 'checklist•cloud',
+            title: 'Cloud landing zone readiness checklist',
+            description: 'The 20 checks we require before turning on production in multi-account clouds (org, network, identity, cost).',
+            category: 'checklist Cloud',
+            filter: 'Cloud',
         },
         {
-            category: 'Blog Posts',
-            items: [
-                { title: 'Building Scalable Microservices', type: 'Blog' },
-                { title: 'DevOps Culture Transformation', type: 'Blog' },
-                { title: 'Data Mesh Implementation', type: 'Blog' },
-            ],
+            meta: 'brief•data',
+            title: 'Data contracts with dbt: keeping SLAs honest',
+            description: 'How we use dbt + contracts + tests to guarantee freshness SLAs and prevent silent schema drift.',
+            category: 'brief Data',
+            filter: 'Data',
+        },
+        {
+            meta: 'runbook•platforms',
+            title: 'Incident playbook: blue/green rollbacks in 5 minutes',
+            description: 'Step-by-step runbook for safe rollback with post-deploy smoke tests and traffic drains.',
+            category: 'runbook Platforms',
+            filter: 'Platforms',
+        },
+        {
+            meta: 'talk•ai',
+            title: 'Private LLM evals: measuring groundedness',
+            description: 'Short talk + demo on setting up an eval harness that catches hallucinations with citations.',
+            category: 'talk Pragmatic AI',
+            filter: 'Pragmatic AI',
+        },
+        {
+            meta: 'brief•workday / salesforce',
+            title: 'Workday to warehouse: reconciliation patterns',
+            description: 'Deterministic sync and reconciliation patterns that keep HCM/Finance aligned with analytics.',
+            category: 'brief Workday/Salesforce',
+            filter: 'Workday/Salesforce',
         },
     ];
+
+    const filteredResources = activeFilter === 'All'
+        ? resources
+        : resources.filter(r => r.filter === activeFilter);
 
     return (
         <div className="min-h-screen bg-dark-900">
@@ -39,50 +65,56 @@ const Resources = () => {
                     transition={{ duration: 0.6 }}
                 >
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                        <span className="gradient-text">Resources</span> & Insights
+                        <span className="gradient-text">Resources</span>
                     </h1>
                     <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
-                        Learn from our experience with case studies, whitepapers, and technical insights
-                        from real-world implementations.
+                        Briefs, checklists, runbooks, and talks—curated from our delivery playbooks.
                     </p>
                 </motion.div>
             </section>
 
-            {/* Resources */}
+            {/* Filters */}
             <section className="section-container">
-                <div className="space-y-12">
-                    {resources.map((section, sectionIndex) => (
+                <div className="flex flex-wrap gap-3 justify-center mb-12">
+                    {filters.map((filter) => (
+                        <button
+                            key={filter}
+                            onClick={() => setActiveFilter(filter)}
+                            className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${activeFilter === filter
+                                    ? 'bg-blue-500 text-white'
+                                    : 'bg-dark-800 text-gray-400 hover:bg-dark-700 hover:text-white'
+                                }`}
+                        >
+                            {filter}
+                        </button>
+                    ))}
+                </div>
+
+                {/* Resource Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    {filteredResources.map((resource, index) => (
                         <motion.div
-                            key={section.category}
+                            key={resource.title}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            className="card-hover cursor-pointer"
                         >
-                            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
-                                {section.category}
-                            </h2>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {section.items.map((item, index) => (
-                                    <motion.div
-                                        key={item.title}
-                                        initial={{ opacity: 0, scale: 0.95 }}
-                                        whileInView={{ opacity: 1, scale: 1 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 0.4, delay: index * 0.1 }}
-                                        className="card-hover cursor-pointer"
-                                    >
-                                        <div className="text-xs text-blue-400 font-semibold mb-2">
-                                            {item.type}
-                                        </div>
-                                        <h3 className="text-lg md:text-xl font-semibold text-white mb-3">
-                                            {item.title}
-                                        </h3>
-                                        <div className="link-arrow text-sm">
-                                            Read More
-                                        </div>
-                                    </motion.div>
-                                ))}
+                            <div className="text-xs text-gray-500 mb-3">
+                                {resource.meta}
+                            </div>
+                            <h3 className="text-lg md:text-xl font-bold text-white mb-3">
+                                {resource.title}
+                            </h3>
+                            <p className="text-gray-400 text-sm mb-4">
+                                {resource.description}
+                            </p>
+                            <div className="text-xs text-gray-500 mb-3">
+                                {resource.category}
+                            </div>
+                            <div className="link-arrow text-sm">
+                                View →Open to read details
                             </div>
                         </motion.div>
                     ))}
