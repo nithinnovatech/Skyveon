@@ -40,10 +40,13 @@ const Navbar = () => {
                     <Link to="/" className="flex items-center space-x-2 group">
                         <motion.div
                             whileHover={{ scale: 1.05 }}
-                            className="text-2xl md:text-3xl font-bold"
+                            className="flex items-center"
                         >
-                            <span className="gradient-text">Skyveon</span>
-                            <span className="text-xs text-gray-400 ml-1">®</span>
+                            <img
+                                src="/images/skyveon-logo.png"
+                                alt="Skyveon"
+                                className="h-10 md:h-12 w-auto"
+                            />
                         </motion.div>
                     </Link>
 

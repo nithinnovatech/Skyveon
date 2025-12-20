@@ -10,9 +10,9 @@
   --bg-tertiary: #1a1a1a;
   --text-primary: #ffffff;
   --text-secondary: #a0a0a0;
-  --accent-blue: #3b82f6;
-  --accent-purple: #a855f7;
-  --accent-cyan: #06b6d4;
+  --accent-orange: #FF6B35;
+  --accent-coral: #FF8C61;
+  --accent-amber: #FFAB40;
 }
 
 * {
@@ -52,12 +52,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--accent-blue), var(--accent-purple));
+  background: linear-gradient(180deg, var(--accent-orange), var(--accent-coral));
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, var(--accent-purple), var(--accent-cyan));
+  background: linear-gradient(180deg, var(--accent-coral), var(--accent-amber));
 }
 
 @layer base {
@@ -88,7 +88,7 @@ body {
 
   /* Gradient Text */
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-orange-400 via-orange-500 to-amber-400;
   }
 
   /* Glass Morphism */
@@ -98,16 +98,16 @@ body {
 
   /* Hover Glow Effect */
   .hover-glow {
-    @apply transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/50;
+    @apply transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/50;
   }
 
   /* Button Styles */
   .btn-primary {
-    @apply px-6 py-3 rounded-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/50;
+    @apply px-6 py-3 rounded-lg font-semibold text-white bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50;
   }
 
   .btn-secondary {
-    @apply px-6 py-3 rounded-lg font-semibold text-white border-2 border-blue-500 hover:bg-blue-500/10 transition-all duration-300;
+    @apply px-6 py-3 rounded-lg font-semibold text-white border-2 border-orange-500 hover:bg-orange-500/10 transition-all duration-300;
   }
 
   .btn-ghost {
@@ -116,11 +116,11 @@ body {
 
   /* Card Styles */
   .card {
-    @apply bg-dark-800 rounded-xl p-6 border border-white/10 hover:border-blue-500/50 transition-all duration-300;
+    @apply bg-dark-800 rounded-xl p-6 border border-white/10 hover:border-orange-500/50 transition-all duration-300;
   }
 
   .card-hover {
-    @apply card hover:transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/20;
+    @apply card hover:transform hover:scale-105 hover:shadow-xl hover:shadow-orange-500/20;
   }
 
   /* Section Container */
@@ -138,14 +138,14 @@ body {
   /* Grid Pattern Background */
   .grid-pattern {
     background-image:
-      linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+      linear-gradient(rgba(255, 107, 53, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 107, 53, 0.05) 1px, transparent 1px);
     background-size: 50px 50px;
   }
 
   /* Link Styles */
   .link-arrow {
-    @apply inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors duration-200;
+    @apply inline-flex items-center gap-2 text-orange-400 hover:text-orange-300 transition-colors duration-200;
   }
 
   .link-arrow::after {

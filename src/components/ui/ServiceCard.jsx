@@ -5,14 +5,21 @@ import { motion } from 'framer-motion';
 const ServiceCard = ({ title, description, link, icon, image, tags, delay = 0 }) => {
     return (
         <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay }}
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{
+                duration: 0.6,
+                delay,
+                type: "spring",
+                stiffness: 100,
+                damping: 15
+            }}
+            whileHover={{ scale: 1.03 }}
             className="group"
         >
             <Link to={link}>
-                <div className="card-hover h-full relative overflow-hidden">
+                <div className="card-hover h-full relative overflow-hidden transition-shadow duration-300 hover:shadow-2xl hover:shadow-blue-500/20">
                     {/* Background Image with Hover Effect */}
                     {image && (
                         <>
@@ -30,7 +37,7 @@ const ServiceCard = ({ title, description, link, icon, image, tags, delay = 0 })
                     {/* Content - keep relative positioning */}
                     <div className="flex flex-col h-full relative z-10">
                         {icon && (
-                            <div className="mb-4 text-blue-400 group-hover:text-purple-400 transition-colors duration-300 transform group-hover:scale-110">
+                            <div className="mb-4 text-orange-400 group-hover:text-orange-300 transition-colors duration-300 transform group-hover:scale-110">
                                 {icon}
                             </div>
                         )}

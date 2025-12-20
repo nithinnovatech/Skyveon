@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import AICharacter from './AICharacter';
 
 const ChatBot = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -55,10 +56,10 @@ const ChatBot = () => {
                         className="fixed bottom-24 right-4 md:right-8 w-[90vw] md:w-96 h-[500px] bg-dark-800 rounded-2xl shadow-2xl border border-white/10 overflow-hidden z-50 flex flex-col"
                     >
                         {/* Header */}
-                        <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4 flex items-center justify-between">
+                        <div className="bg-gradient-to-r from-orange-600 to-orange-500 p-4 flex items-center justify-between">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-                                    <span className="text-2xl">🤖</span>
+                                <div className="w-12 h-12 flex items-center justify-center">
+                                    <AICharacter isWaving={true} size="md" />
                                 </div>
                                 <div>
                                     <h3 className="text-white font-semibold">Skyveon AI</h3>
@@ -87,8 +88,8 @@ const ChatBot = () => {
                                 >
                                     <div
                                         className={`max-w-[75%] rounded-2xl px-4 py-2 ${msg.sender === 'user'
-                                                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
-                                                : 'bg-dark-800 text-gray-200 border border-white/10'
+                                            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+                                            : 'bg-dark-800 text-gray-200 border border-white/10'
                                             }`}
                                     >
                                         <p className="text-sm">{msg.text}</p>
@@ -108,11 +109,11 @@ const ChatBot = () => {
                                     value={message}
                                     onChange={(e) => setMessage(e.target.value)}
                                     placeholder="Type a message..."
-                                    className="flex-1 bg-dark-900 text-white px-4 py-2 rounded-full border border-white/10 focus:outline-none focus:border-blue-500 transition-colors"
+                                    className="flex-1 bg-dark-900 text-white px-4 py-2 rounded-full border border-white/10 focus:outline-none focus:border-orange-500 transition-colors"
                                 />
                                 <button
                                     type="submit"
-                                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-2 rounded-full hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                                    className="bg-gradient-to-r from-orange-600 to-orange-500 text-white p-2 rounded-full hover:shadow-lg transition-all duration-300 transform hover:scale-105"
                                 >
                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
@@ -129,7 +130,7 @@ const ChatBot = () => {
                 onClick={toggleChat}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className="fixed bottom-6 right-4 md:right-8 w-14 h-14 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full shadow-2xl flex items-center justify-center z-50 hover:shadow-blue-500/50 transition-all duration-300"
+                className="fixed bottom-6 right-4 md:right-8 w-16 h-16 bg-gradient-to-r from-orange-600 to-orange-500 rounded-full shadow-2xl flex items-center justify-center z-50 hover:shadow-orange-500/50 transition-all duration-300"
             >
                 <AnimatePresence mode="wait">
                     {isOpen ? (
@@ -147,19 +148,15 @@ const ChatBot = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                         </motion.svg>
                     ) : (
-                        <motion.svg
-                            key="chat"
-                            initial={{ rotate: -90, opacity: 0 }}
-                            animate={{ rotate: 0, opacity: 1 }}
-                            exit={{ rotate: 90, opacity: 0 }}
+                        <motion.div
+                            key="character"
+                            initial={{ scale: 0, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0, opacity: 0 }}
                             transition={{ duration: 0.2 }}
-                            className="w-6 h-6 text-white"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
                         >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                        </motion.svg>
+                            <AICharacter isWaving={true} size="lg" />
+                        </motion.div>
                     )}
                 </AnimatePresence>
             </motion.button>

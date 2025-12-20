@@ -8,21 +8,21 @@ export default {
     extend: {
       colors: {
         primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
+          50: '#fff7ed',
+          100: '#ffedd5',
+          200: '#fed7aa',
+          300: '#fdba74',
+          400: '#fb923c',
+          500: '#FF6B35',
+          600: '#E85D2C',
+          700: '#c2410c',
+          800: '#9a3412',
+          900: '#7c2d12',
         },
         accent: {
-          purple: '#a855f7',
-          blue: '#3b82f6',
-          cyan: '#06b6d4',
+          orange: '#FF6B35',
+          coral: '#FF8C61',
+          amber: '#FFAB40',
         },
         dark: {
           900: '#0a0a0a',
@@ -70,14 +70,14 @@ export default {
           '50%': { transform: 'translateY(-20px)' },
         },
         glow: {
-          '0%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.5)' },
-          '100%': { boxShadow: '0 0 30px rgba(168, 85, 247, 0.8)' },
+          '0%': { boxShadow: '0 0 20px rgba(255, 107, 53, 0.5)' },
+          '100%': { boxShadow: '0 0 30px rgba(255, 140, 97, 0.8)' },
         },
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'gradient-primary': 'linear-gradient(135deg, #3b82f6 0%, #a855f7 100%)',
+        'gradient-primary': 'linear-gradient(135deg, #FF6B35 0%, #FF8C61 100%)',
         'gradient-dark': 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)',
       },
       backdropBlur: {

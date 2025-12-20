@@ -6,6 +6,7 @@ import PlaybookCard from '../components/ui/PlaybookCard';
 import Button from '../components/ui/Button';
 import ContactForm from '../components/ui/ContactForm';
 import NeuralNetwork from '../components/ui/NeuralNetwork';
+import AnimatedOrb from '../components/ui/AnimatedOrb';
 
 const Home = () => {
     // Service icons (using simple SVG)
@@ -149,26 +150,81 @@ const Home = () => {
                 <div className="absolute inset-0 bg-black">
                     <NeuralNetwork />
                     <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"></div>
+
+                    {/* Animated Gradient Orbs */}
+                    <div className="absolute top-1/4 left-1/4">
+                        <AnimatedOrb size={500} color="orange" delay={0} />
+                    </div>
+                    <div className="absolute bottom-1/4 right-1/4">
+                        <AnimatedOrb size={400} color="coral" delay={0.3} />
+                    </div>
+                    <div className="absolute top-1/2 right-1/3">
+                        <AnimatedOrb size={300} color="amber" delay={0.6} />
+                    </div>
                 </div>
 
                 <div className="relative section-container text-center">
+                    {/* Staggered Text Animation */}
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}
                     >
-                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                            <span className="text-white">Engineering that </span>
-                            <span className="gradient-text">ships and scales.</span>
-                        </h1>
-                        <p className="text-lg md:text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto mb-8 leading-relaxed">
+                        <motion.h1
+                            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
+                            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            transition={{
+                                duration: 0.8,
+                                type: "spring",
+                                stiffness: 100,
+                                damping: 15
+                            }}
+                        >
+                            <motion.span
+                                className="text-white inline-block"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.2, duration: 0.6 }}
+                            >
+                                Engineering that{" "}
+                            </motion.span>
+                            <motion.span
+                                className="gradient-text inline-block"
+                                initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                transition={{
+                                    delay: 0.4,
+                                    duration: 0.6,
+                                    type: "spring",
+                                    stiffness: 120,
+                                    damping: 12
+                                }}
+                            >
+                                ships and scales.
+                            </motion.span>
+                        </motion.h1>
+
+                        <motion.p
+                            className="text-lg md:text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto mb-8 leading-relaxed"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.6, duration: 0.7 }}
+                        >
                             We design, build, and operate modern systems—apps, cloud foundations, data platforms,
                             Workday & Salesforce, and pragmatic AI—engineered for reliability, security, and scale.
-                        </p>
+                        </motion.p>
+
                         <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.4, duration: 0.6 }}
+                            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            transition={{
+                                delay: 0.8,
+                                duration: 0.6,
+                                type: "spring",
+                                stiffness: 100,
+                                damping: 15
+                            }}
                             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
                         >
                             <Button variant="primary">
@@ -178,20 +234,34 @@ const Home = () => {
                     </motion.div>
                 </div>
 
-                {/* Scroll Indicator */}
+                {/* Enhanced Scroll Indicator */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 1, duration: 1 }}
+                    transition={{ delay: 1.2, duration: 1 }}
                     className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
                 >
-                    <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+                    <motion.div
+                        className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center relative"
+                        animate={{
+                            boxShadow: [
+                                "0 0 0px rgba(147, 51, 234, 0)",
+                                "0 0 20px rgba(147, 51, 234, 0.5)",
+                                "0 0 0px rgba(147, 51, 234, 0)"
+                            ]
+                        }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                    >
                         <motion.div
                             animate={{ y: [0, 12, 0] }}
-                            transition={{ duration: 1.5, repeat: Infinity }}
-                            className="w-1.5 h-1.5 bg-white rounded-full mt-2"
+                            transition={{
+                                duration: 1.5,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                            className="w-1.5 h-1.5 bg-white rounded-full mt-2 shadow-lg shadow-purple-500/50"
                         />
-                    </div>
+                    </motion.div>
                 </motion.div>
             </section>
 
