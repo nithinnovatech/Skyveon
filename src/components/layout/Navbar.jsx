@@ -22,7 +22,7 @@ const Navbar = () => {
         { name: 'Resources', path: '/resources' },
         { name: 'Careers', path: '/careers' },
         { name: 'About us', path: '/about' },
-        { name: 'Contact Us', path: '#contact' },
+        { name: 'Contact Us', path: '/contact' },
     ];
 
     const isActive = (path) => location.pathname === path;

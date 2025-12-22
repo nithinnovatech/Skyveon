@@ -43,6 +43,7 @@ export default {
         'gradient-shift': 'gradientShift 8s ease infinite',
         'float': 'float 6s ease-in-out infinite',
         'glow': 'glow 2s ease-in-out infinite alternate',
+        'spotlight': 'spotlight 2s ease .75s 1 forwards',
       },
       keyframes: {
         fadeIn: {
@@ -72,6 +73,16 @@ export default {
         glow: {
           '0%': { boxShadow: '0 0 20px rgba(255, 107, 53, 0.5)' },
           '100%': { boxShadow: '0 0 30px rgba(255, 140, 97, 0.8)' },
+        },
+        spotlight: {
+          '0%': {
+            opacity: '0',
+            transform: 'translate(-72%, -62%) scale(0.5)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translate(-50%, -40%) scale(1)',
+          },
         },
       },
       backgroundImage: {

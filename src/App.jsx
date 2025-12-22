@@ -8,6 +8,7 @@ import Patterns from './pages/Patterns';
 import Resources from './pages/Resources';
 import Careers from './pages/Careers';
 import About from './pages/About';
+import Contact from './pages/Contact';
 
 function App() {
   return (
@@ -20,11 +21,10 @@ function App() {
         <Route path="/resources" element={<Resources />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </Layout>
   );
 }
 
 export default App;
-
-

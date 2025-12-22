@@ -3,10 +3,11 @@ import { motion } from 'framer-motion';
 import ServiceCard from '../components/ui/ServiceCard';
 import FeatureCard from '../components/ui/FeatureCard';
 import PlaybookCard from '../components/ui/PlaybookCard';
+import IndustryCard from '../components/ui/IndustryCard';
 import Button from '../components/ui/Button';
 import ContactForm from '../components/ui/ContactForm';
-import NeuralNetwork from '../components/ui/NeuralNetwork';
-import AnimatedOrb from '../components/ui/AnimatedOrb';
+import { SplineScene } from '../components/ui/SplineScene';
+import { Spotlight } from '../components/ui/Spotlight';
 
 const Home = () => {
     // Service icons (using simple SVG)
@@ -142,112 +143,160 @@ const Home = () => {
         },
     ];
 
+    // Industry Icons
+    const BankIcon = () => (
+        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+    );
+
+    const HeartIcon = () => (
+        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>
+    );
+
+    const ShoppingIcon = () => (
+        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+        </svg>
+    );
+
+    const FactoryIcon = () => (
+        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+        </svg>
+    );
+
+    const ShieldIcon = () => (
+        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+    );
+
+    const MonitorIcon = () => (
+        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+    );
+
+    const industries = [
+        {
+            title: 'Financial Services',
+            tagline: 'Zero-trust by default, auditable changes, and cost-aware scale.',
+            icon: <BankIcon />,
+            features: ['PCI/DSS & SOX readiness', 'Golden paths for CI/CD', 'Data lineage & controls'],
+        },
+        {
+            title: 'Healthcare & Life Sciences',
+            tagline: 'HIPAA/GDPR baked in: PHI isolation, access controls, repeatable pipelines.',
+            icon: <HeartIcon />,
+            features: ['De-identification & retention', 'Clinical data models', 'Audit & rollback playbooks'],
+        },
+        {
+            title: 'Retail & eCommerce',
+            tagline: 'Personalization, inventory signals, and reliable peak-season scale.',
+            icon: <ShoppingIcon />,
+            features: ['Event streams & CDC', 'Realtime analytics', 'A/B and guardrailed rollouts'],
+        },
+        {
+            title: 'Manufacturing',
+            tagline: 'Secure telemetry from plant to cloud, anomaly detection, and closed-loop actions.',
+            icon: <FactoryIcon />,
+            features: ['Edge → lakehouse', 'Predictive maintenance', 'Digital twin patterns'],
+        },
+        {
+            title: 'Public Sector',
+            tagline: 'Compliance-first delivery with mission SLAs.',
+            icon: <ShieldIcon />,
+            features: ['FedRAMP-aligned paths', 'Data governance', 'Reliability runbooks'],
+        },
+        {
+            title: 'Media & Technology',
+            tagline: 'Multi-tenant platforms, developer experience at scale, AI assistants with rollback.',
+            icon: <MonitorIcon />,
+            features: ['Platform engineering', 'Observability at scale', 'Private AI assistants'],
+        },
+    ];
+
+
     return (
         <div className="min-h-screen">
-            {/* Hero Section */}
-            <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-                {/* Neural Network Background */}
-                <div className="absolute inset-0 bg-black">
-                    <NeuralNetwork />
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"></div>
+            {/* Hero Section with Spline 3D */}
+            <section className="relative min-h-screen w-full bg-black/[0.96] overflow-hidden">
+                <Spotlight
+                    className="-top-40 left-0 md:left-60 md:-top-20"
+                    fill="#FF6B35"
+                />
 
-                    {/* Animated Gradient Orbs */}
-                    <div className="absolute top-1/4 left-1/4">
-                        <AnimatedOrb size={500} color="orange" delay={0} />
-                    </div>
-                    <div className="absolute bottom-1/4 right-1/4">
-                        <AnimatedOrb size={400} color="coral" delay={0.3} />
-                    </div>
-                    <div className="absolute top-1/2 right-1/3">
-                        <AnimatedOrb size={300} color="amber" delay={0.6} />
-                    </div>
-                </div>
-
-                <div className="relative section-container text-center">
-                    {/* Staggered Text Animation */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <motion.h1
-                            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
-                            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            transition={{
-                                duration: 0.8,
-                                type: "spring",
-                                stiffness: 100,
-                                damping: 15
-                            }}
-                        >
-                            <motion.span
-                                className="text-white inline-block"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2, duration: 0.6 }}
-                            >
-                                Engineering that{" "}
-                            </motion.span>
-                            <motion.span
-                                className="gradient-text inline-block"
-                                initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                transition={{
-                                    delay: 0.4,
-                                    duration: 0.6,
-                                    type: "spring",
-                                    stiffness: 120,
-                                    damping: 12
-                                }}
-                            >
-                                ships and scales.
-                            </motion.span>
-                        </motion.h1>
-
-                        <motion.p
-                            className="text-lg md:text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto mb-8 leading-relaxed"
+                <div className="flex flex-col lg:flex-row h-screen">
+                    {/* Left content */}
+                    <div className="flex-1 p-8 md:p-12 lg:p-16 relative z-10 flex flex-col justify-center">
+                        <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.6, duration: 0.7 }}
+                            transition={{ duration: 0.6 }}
                         >
-                            We design, build, and operate modern systems—apps, cloud foundations, data platforms,
-                            Workday & Salesforce, and pragmatic AI—engineered for reliability, security, and scale.
-                        </motion.p>
+                            <motion.h1
+                                className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-tight"
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.2, duration: 0.8 }}
+                            >
+                                <span className="bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+                                    Engineering that{" "}
+                                </span>
+                                <span className="gradient-text">
+                                    ships and scales.
+                                </span>
+                            </motion.h1>
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            transition={{
-                                delay: 0.8,
-                                duration: 0.6,
-                                type: "spring",
-                                stiffness: 100,
-                                damping: 15
-                            }}
-                            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-                        >
-                            <Button variant="primary">
-                                Why Skyveon? →
-                            </Button>
+                            <motion.p
+                                className="mt-4 text-neutral-300 max-w-lg text-lg md:text-xl leading-relaxed"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4, duration: 0.6 }}
+                            >
+                                We design, build, and operate modern systems—apps, cloud foundations, data platforms,
+                                Workday & Salesforce, and pragmatic AI—engineered for reliability, security, and scale.
+                            </motion.p>
+
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.6, duration: 0.6 }}
+                                className="mt-8"
+                            >
+                                <Button variant="primary">
+                                    Why Skyveon? →
+                                </Button>
+                            </motion.div>
                         </motion.div>
-                    </motion.div>
+                    </div>
+
+                    {/* Right content - Spline 3D */}
+                    <div className="flex-1 relative min-h-[400px] lg:min-h-0">
+                        <SplineScene
+                            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                            className="w-full h-full"
+                        />
+                    </div>
                 </div>
 
-                {/* Enhanced Scroll Indicator */}
+                {/* Scroll Indicator */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.2, duration: 1 }}
-                    className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+                    className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
                 >
                     <motion.div
-                        className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center relative"
+                        className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center"
                         animate={{
                             boxShadow: [
-                                "0 0 0px rgba(147, 51, 234, 0)",
-                                "0 0 20px rgba(147, 51, 234, 0.5)",
-                                "0 0 0px rgba(147, 51, 234, 0)"
+                                "0 0 0px rgba(255, 107, 53, 0)",
+                                "0 0 20px rgba(255, 107, 53, 0.5)",
+                                "0 0 0px rgba(255, 107, 53, 0)"
                             ]
                         }}
                         transition={{ duration: 2, repeat: Infinity }}
@@ -259,7 +308,7 @@ const Home = () => {
                                 repeat: Infinity,
                                 ease: "easeInOut"
                             }}
-                            className="w-1.5 h-1.5 bg-white rounded-full mt-2 shadow-lg shadow-purple-500/50"
+                            className="w-1.5 h-1.5 bg-orange-400 rounded-full mt-2 shadow-lg shadow-orange-500/50"
                         />
                     </motion.div>
                 </motion.div>
@@ -341,6 +390,34 @@ const Home = () => {
                         <PlaybookCard
                             key={playbook.title}
                             {...playbook}
+                            delay={index * 0.1}
+                        />
+                    ))}
+                </div>
+            </section>
+
+            {/* Industries We Serve Section */}
+            <section className="section-container bg-dark-900">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                >
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4">
+                        Industries we <span className="gradient-text">serve</span>
+                    </h2>
+                    <p className="text-gray-400 text-center mb-12 md:mb-16 max-w-3xl mx-auto">
+                        We design, build, and operate cross-stack systems with compliance, reliability, and measurable
+                        outcomes — tailored to each industry's guardrails and goals.
+                    </p>
+                </motion.div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    {industries.map((industry, index) => (
+                        <IndustryCard
+                            key={industry.title}
+                            {...industry}
                             delay={index * 0.1}
                         />
                     ))}
