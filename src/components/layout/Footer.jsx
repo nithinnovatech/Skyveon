@@ -24,11 +24,17 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
                     {/* Logo & Description */}
                     <div className="md:col-span-1">
-                        <img
-                            src="/images/skyveon-logo.png"
-                            alt="Skyveon"
-                            className="h-10 w-auto mb-4"
-                        />
+                        <Link to="/" className="flex items-center space-x-3 group mb-4">
+                            <img
+                                src="/images/skyveon-logo.png"
+                                alt="Skyveon"
+                                className="h-12 w-auto"
+                            />
+                            <span className="text-xl font-bold tracking-tight">
+                                <span className="text-white">Sky</span>
+                                <span className="gradient-text">veon</span>
+                            </span>
+                        </Link>
                         <p className="text-gray-400 text-sm">
                             Engineering that ships and scales. Cross-stack technology solutions for the modern enterprise.
                         </p>
@@ -72,7 +78,6 @@ const Footer = () => {
                     <div>
                         <h4 className="text-white font-semibold mb-4">Contact</h4>
                         <div className="space-y-2 text-gray-400 text-sm">
-                            <p>Powell, OH</p>
                             <p>
                                 <a href="mailto:info@skyveon.ai" className="hover:text-orange-400 transition-colors">
                                     info@skyveon.ai

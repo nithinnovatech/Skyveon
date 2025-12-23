@@ -8,8 +8,15 @@ import Button from '../components/ui/Button';
 import ContactForm from '../components/ui/ContactForm';
 import { SplineScene } from '../components/ui/SplineScene';
 import { Spotlight } from '../components/ui/Spotlight';
+import NeuralNetwork from '../components/ui/NeuralNetwork';
 
 const Home = () => {
+    const handleScrollToEdge = () => {
+        const edgeSection = document.getElementById('edge');
+        if (edgeSection) {
+            edgeSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
     // Service icons (using simple SVG)
     const CodeIcon = () => (
         <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -224,12 +231,15 @@ const Home = () => {
         <div className="min-h-screen">
             {/* Hero Section with Spline 3D */}
             <section className="relative min-h-screen w-full bg-black/[0.96] overflow-hidden">
+                <div className="absolute inset-0 z-0 opacity-40">
+                    <NeuralNetwork />
+                </div>
                 <Spotlight
                     className="-top-40 left-0 md:left-60 md:-top-20"
                     fill="#FF6B35"
                 />
 
-                <div className="flex flex-col lg:flex-row h-screen">
+                <div className="flex flex-col lg:flex-row h-screen relative z-10">
                     {/* Left content */}
                     <div className="flex-1 p-8 md:p-12 lg:p-16 relative z-10 flex flex-col justify-center">
                         <motion.div
@@ -237,6 +247,19 @@ const Home = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
                         >
+                            <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.1 }}
+                                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-medium mb-6"
+                            >
+                                <span className="relative flex h-2 w-2">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+                                </span>
+                                AI-Powered Solutions
+                            </motion.div>
+
                             <motion.h1
                                 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-tight"
                                 initial={{ opacity: 0, y: 30 }}
@@ -267,7 +290,7 @@ const Home = () => {
                                 transition={{ delay: 0.6, duration: 0.6 }}
                                 className="mt-8"
                             >
-                                <Button variant="primary">
+                                <Button variant="primary" onClick={handleScrollToEdge}>
                                     Why Skyveon? →
                                 </Button>
                             </motion.div>
@@ -342,7 +365,7 @@ const Home = () => {
             </section>
 
             {/* Skyveon Edge Section */}
-            <section className="section-container bg-dark-900">
+            <section id="edge" className="section-container bg-dark-900 scroll-mt-20">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}

@@ -37,7 +37,7 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16 md:h-20">
                     {/* Logo */}
-                    <Link to="/" className="flex items-center space-x-2 group">
+                    <Link to="/" className="flex items-center space-x-3 group">
                         <motion.div
                             whileHover={{ scale: 1.05 }}
                             className="flex items-center"
@@ -45,9 +45,13 @@ const Navbar = () => {
                             <img
                                 src="/images/skyveon-logo.png"
                                 alt="Skyveon"
-                                className="h-10 md:h-12 w-auto"
+                                className="h-12 md:h-16 w-auto"
                             />
                         </motion.div>
+                        <span className="text-xl md:text-2xl font-bold tracking-tight">
+                            <span className="text-white">Sky</span>
+                            <span className="gradient-text">veon</span>
+                        </span>
                     </Link>
 
                     {/* Desktop Navigation */}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-const AICharacter = ({ isWaving = false, size = 'md' }) => {
+const AICharacter = ({ size = 'md' }) => {
     const [isBlinking, setIsBlinking] = useState(false);
 
     // Random blinking effect
@@ -37,95 +37,52 @@ const AICharacter = ({ isWaving = false, size = 'md' }) => {
             >
                 {/* Robot Head */}
                 <motion.div
-                    className="relative w-full h-full bg-gradient-to-br from-orange-500 via-orange-400 to-orange-600 rounded-full shadow-lg"
+                    className="relative w-full h-full bg-[#0a0a0a] rounded-2xl shadow-lg border border-white/10 overflow-hidden"
                     animate={{
                         boxShadow: [
-                            '0 0 20px rgba(255, 107, 53, 0.5)',
-                            '0 0 30px rgba(255, 140, 97, 0.7)',
-                            '0 0 20px rgba(255, 107, 53, 0.5)',
+                            '0 0 15px rgba(255, 255, 255, 0.1)',
+                            '0 0 25px rgba(255, 107, 53, 0.2)',
+                            '0 0 15px rgba(255, 255, 255, 0.1)',
                         ]
                     }}
                     transition={{
-                        duration: 2,
+                        duration: 4,
                         repeat: Infinity,
                     }}
                 >
-                    {/* Antenna */}
-                    <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-0.5 h-2 bg-gradient-to-t from-orange-400 to-transparent">
-                        <motion.div
-                            animate={{
-                                scale: [1, 1.3, 1],
-                                opacity: [0.7, 1, 0.7]
-                            }}
-                            transition={{
-                                duration: 1.5,
-                                repeat: Infinity,
-                            }}
-                            className="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-orange-400 rounded-full shadow-lg shadow-orange-400/50"
-                        />
-                    </div>
+                    {/* Glossy Visor */}
+                    <div className="absolute top-0 left-0 right-0 h-[60%] bg-gradient-to-b from-white/10 to-transparent z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-black via-zinc-900 to-black" />
 
-                    {/* Eyes */}
-                    <div className="absolute top-1/3 left-1/2 -translate-x-1/2 flex gap-2">
-                        {/* Left Eye */}
+                    {/* Eyes Screen / Visor Detail */}
+                    <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[85%] h-[45%] bg-black rounded-lg flex items-center justify-center gap-4 z-20 border border-white/5 shadow-inner">
+                        {/* Left Eye (Sleek LED style) */}
                         <motion.div
                             animate={{
-                                scaleY: isBlinking ? 0.1 : 1,
+                                opacity: isBlinking ? 0 : [0.7, 1, 0.7],
+                                scale: isBlinking ? 0.8 : 1
                             }}
-                            transition={{ duration: 0.1 }}
-                            className="w-2 h-2 bg-white rounded-full shadow-inner"
-                        >
-                            <div className="w-1 h-1 bg-blue-900 rounded-full mt-0.5 ml-0.5" />
-                        </motion.div>
+                            transition={{ duration: 0.15 }}
+                            className="w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+                        />
                         {/* Right Eye */}
                         <motion.div
                             animate={{
-                                scaleY: isBlinking ? 0.1 : 1,
+                                opacity: isBlinking ? 0 : [0.7, 1, 0.7],
+                                scale: isBlinking ? 0.8 : 1
                             }}
-                            transition={{ duration: 0.1 }}
-                            className="w-2 h-2 bg-white rounded-full shadow-inner"
-                        >
-                            <div className="w-1 h-1 bg-blue-900 rounded-full mt-0.5 ml-0.5" />
-                        </motion.div>
+                            transition={{ duration: 0.15 }}
+                            className="w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+                        />
                     </div>
 
-                    {/* Smile */}
-                    <div className="absolute bottom-1/3 left-1/2 -translate-x-1/2">
-                        <svg width="16" height="8" viewBox="0 0 16 8" className="text-white opacity-80">
-                            <path
-                                d="M2 2 Q8 6 14 2"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                fill="none"
-                                strokeLinecap="round"
-                            />
-                        </svg>
-                    </div>
+                    {/* Mouth Line / Sensor */}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-white/10 rounded-full z-20" />
 
-                    {/* Cheek Blush */}
-                    <div className="absolute top-1/2 left-1 w-2 h-1.5 bg-pink-300/30 rounded-full blur-sm" />
-                    <div className="absolute top-1/2 right-1 w-2 h-1.5 bg-pink-300/30 rounded-full blur-sm" />
+                    {/* Reflective shine */}
+                    <div className="absolute -top-4 -right-4 w-12 h-12 bg-white/5 rounded-full blur-xl" />
                 </motion.div>
 
-                {/* Waving Hand */}
-                {isWaving && (
-                    <motion.div
-                        initial={{ rotate: 0, x: 0, y: 0 }}
-                        animate={{
-                            rotate: [0, 15, -15, 15, -15, 0],
-                            x: [0, 2, -2, 2, -2, 0],
-                        }}
-                        transition={{
-                            duration: 1,
-                            repeat: Infinity,
-                            repeatDelay: 0.5,
-                        }}
-                        className="absolute -right-2 top-1/4 text-2xl"
-                        style={{ fontSize: size === 'sm' ? '16px' : size === 'md' ? '20px' : size === 'lg' ? '24px' : '32px' }}
-                    >
-                        👋
-                    </motion.div>
-                )}
             </motion.div>
 
             {/* Glow Effect */}

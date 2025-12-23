@@ -59,7 +59,7 @@ const ChatBot = () => {
                         <div className="bg-gradient-to-r from-orange-600 to-orange-500 p-4 flex items-center justify-between">
                             <div className="flex items-center gap-3">
                                 <div className="w-12 h-12 flex items-center justify-center">
-                                    <AICharacter isWaving={true} size="md" />
+                                    <AICharacter size="md" />
                                 </div>
                                 <div>
                                     <h3 className="text-white font-semibold">Skyveon AI</h3>
@@ -155,7 +155,7 @@ const ChatBot = () => {
                             exit={{ scale: 0, opacity: 0 }}
                             transition={{ duration: 0.2 }}
                         >
-                            <AICharacter isWaving={true} size="lg" />
+                            <AICharacter size="lg" />
                         </motion.div>
                     )}
                 </AnimatePresence>

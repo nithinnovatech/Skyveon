@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Patterns = () => {
     const [openIndex, setOpenIndex] = useState(0); // Cloud foundations open by default
+    const [selectedPattern, setSelectedPattern] = useState(null);
 
     const patternGroups = [
         {
@@ -174,12 +175,12 @@ const Patterns = () => {
                                                                 </li>
                                                             ))}
                                                         </ul>
-                                                        <Link
-                                                            to="/contact"
+                                                        <button
+                                                            onClick={() => setSelectedPattern({ ...pattern, category: group.title, icon: group.icon })}
                                                             className="text-orange-400 hover:text-orange-300 transition-colors text-sm font-medium"
                                                         >
                                                             Read Pattern Brief →
-                                                        </Link>
+                                                        </button>
                                                     </div>
                                                 ))}
                                             </div>
@@ -228,6 +229,93 @@ const Patterns = () => {
                     </div>
                 </motion.div>
             </section>
+            {/* Pattern Detail Modal */}
+            <AnimatePresence>
+                {selectedPattern && (
+                    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setSelectedPattern(null)}
+                            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            className="relative w-full max-w-2xl bg-dark-800 rounded-2xl border border-white/10 shadow-2xl overflow-hidden"
+                        >
+                            {/* Modal Header */}
+                            <div className="p-6 border-b border-white/10 bg-orange-500/5">
+                                <div className="flex justify-between items-start">
+                                    <div className="flex items-center gap-3">
+                                        <div className="p-2 rounded-lg border border-orange-500/20 text-orange-400 bg-orange-500/10">
+                                            {selectedPattern.icon}
+                                        </div>
+                                        <div>
+                                            <span className="text-[10px] uppercase tracking-wider font-bold text-orange-400">
+                                                {selectedPattern.category} Pattern
+                                            </span>
+                                            <h2 className="text-xl md:text-2xl font-bold text-white leading-tight">
+                                                {selectedPattern.title}
+                                            </h2>
+                                        </div>
+                                    </div>
+                                    <button
+                                        onClick={() => setSelectedPattern(null)}
+                                        className="text-gray-400 hover:text-white p-2 transition-colors"
+                                    >
+                                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Modal Content */}
+                            <div className="p-8">
+                                <div className="mb-8">
+                                    <h4 className="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-4">Architecture Brief</h4>
+                                    <p className="text-gray-400 leading-relaxed text-lg">
+                                        {selectedPattern.description}
+                                    </p>
+                                </div>
+
+                                <div className="mb-8 p-6 bg-dark-900/50 rounded-xl border border-white/5">
+                                    <h4 className="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-4">Core Components</h4>
+                                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        {selectedPattern.points.map((point, idx) => (
+                                            <li key={idx} className="flex items-center gap-3 text-gray-400 text-sm">
+                                                <span className="w-1.5 h-1.5 rounded-full bg-orange-500 flex-shrink-0"></span>
+                                                {point}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row gap-4">
+                                    <Link
+                                        to="/contact"
+                                        className="flex-1 px-6 py-4 bg-gradient-to-r from-orange-500 to-coral-500 rounded-xl text-white font-bold text-center hover:shadow-lg hover:shadow-orange-500/30 transition-all transform hover:-y-0.5"
+                                    >
+                                        Implement this Pattern →
+                                    </Link>
+                                    <button
+                                        onClick={() => setSelectedPattern(null)}
+                                        className="px-6 py-4 border border-white/10 rounded-xl text-gray-300 font-semibold hover:bg-white/5 transition-all"
+                                    >
+                                        Explore More Patterns
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Modal Footer Decor */}
+                            <div className="h-1 w-full bg-gradient-to-r from-orange-500 via-coral-500 to-orange-600" />
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };
