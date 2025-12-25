@@ -130,7 +130,7 @@ const ChatBot = () => {
                 onClick={toggleChat}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className="fixed bottom-6 right-4 md:right-8 w-16 h-16 bg-gradient-to-r from-orange-600 to-orange-500 rounded-full shadow-2xl flex items-center justify-center z-50 hover:shadow-orange-500/50 transition-all duration-300"
+                className="fixed bottom-6 right-4 md:right-8 w-16 h-16 bg-transparent flex items-center justify-center z-50 transition-all duration-300"
             >
                 <AnimatePresence mode="wait">
                     {isOpen ? (

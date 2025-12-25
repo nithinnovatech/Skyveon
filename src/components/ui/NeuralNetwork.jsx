@@ -18,21 +18,22 @@ const NeuralNetwork = () => {
 
         // Configuration
         const config = {
-            nodeCount: 60,
-            maxConnections: 4,
+            nodeCount: 70, // Slightly more nodes for a grid feel
+            maxConnections: 3, // Fewer connections for cleaner look
             connectionDistance: 150,
-            nodeSpeed: 0.3,
-            pulseSpeed: 2,
-            mouseInfluence: 30,
-            nodeSize: { min: 2, max: 6 },
-            glowIntensity: 0.6,
+            nodeSpeed: 0.4,
+            pulseSpeed: 3, // Faster data
+            mouseInfluence: 100, // Reduced influence radius
+            nodeSize: { min: 2, max: 4 }, // Smaller, sharper nodes
+            glowIntensity: 0.4,
         };
 
         const colors = {
-            primary: '#3B82F6',
-            secondary: '#8B5CF6',
-            accent: '#06B6D4',
-            glow: '#60A5FA',
+            // Neon Cyberpunk Palette
+            primary: '#00F0FF',   // Neon Cyan
+            secondary: '#7000FF', // Neon Purple
+            accent: '#FFFFFF',    // White Hot
+            grid: '#00F0FF22',    // Faint grid
         };
 
         // Resize canvas
@@ -62,22 +63,22 @@ const NeuralNetwork = () => {
                 this.y = Math.random() * height;
                 this.vx = (Math.random() - 0.5) * config.nodeSpeed;
                 this.vy = (Math.random() - 0.5) * config.nodeSpeed;
-                this.radius = config.nodeSize.min + Math.random() * (config.nodeSize.max - config.nodeSize.min);
-                this.color = [colors.primary, colors.secondary, colors.accent][Math.floor(Math.random() * 3)];
+                this.size = config.nodeSize.min + Math.random() * (config.nodeSize.max - config.nodeSize.min);
+                this.color = [colors.primary, colors.secondary][Math.floor(Math.random() * 2)];
                 this.pulsePhase = Math.random() * Math.PI * 2;
                 this.connections = [];
             }
 
             update() {
-                // Mouse influence
+                // Mouse influence - rigid repulsion
                 const dx = mouseRef.current.x - this.x;
                 const dy = mouseRef.current.y - this.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
                 if (distance < 200) {
                     const force = (200 - distance) / 200;
-                    this.vx -= (dx / distance) * force * 0.02;
-                    this.vy -= (dy / distance) * force * 0.02;
+                    this.vx -= (dx / distance) * force * 0.05;
+                    this.vy -= (dy / distance) * force * 0.05;
                 }
 
                 // Update position
@@ -97,29 +98,21 @@ const NeuralNetwork = () => {
                 this.vy *= 0.99;
 
                 // Update pulse phase
-                this.pulsePhase += 0.02;
+                this.pulsePhase += 0.05;
             }
 
             draw() {
-                const pulse = Math.sin(this.pulsePhase) * 0.3 + 1;
-                const size = this.radius * pulse;
+                const pulse = Math.sin(this.pulsePhase) * 0.2 + 0.8; // Sharper pulse range
+                const currentSize = this.size * pulse;
 
-                // Glow effect
-                const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, size * 3);
-                gradient.addColorStop(0, this.color + 'AA');
-                gradient.addColorStop(0.5, this.color + '44');
-                gradient.addColorStop(1, this.color + '00');
+                // Glow effect (Square)
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
 
-                ctx.fillStyle = gradient;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, size * 3, 0, Math.PI * 2);
-                ctx.fill();
-
-                // Core node
                 ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, size, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.fillRect(this.x - currentSize / 2, this.y - currentSize / 2, currentSize, currentSize);
+
+                ctx.shadowBlur = 0; // Reset
             }
         }
 
@@ -131,6 +124,7 @@ const NeuralNetwork = () => {
                 this.progress = 0;
                 this.speed = config.pulseSpeed / 100;
                 this.color = colors.accent;
+                this.size = 2;
             }
 
             update() {
@@ -142,22 +136,11 @@ const NeuralNetwork = () => {
                 const x = this.node1.x + (this.node2.x - this.node1.x) * this.progress;
                 const y = this.node1.y + (this.node2.y - this.node1.y) * this.progress;
 
-                // Glow
-                const gradient = ctx.createRadialGradient(x, y, 0, x, y, 8);
-                gradient.addColorStop(0, this.color + 'FF');
-                gradient.addColorStop(0.5, this.color + '88');
-                gradient.addColorStop(1, this.color + '00');
-
-                ctx.fillStyle = gradient;
-                ctx.beginPath();
-                ctx.arc(x, y, 8, 0, Math.PI * 2);
-                ctx.fill();
-
-                // Core
                 ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(x, y, 2, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.shadowBlur = 5;
+                ctx.shadowColor = this.color;
+                ctx.fillRect(x - this.size / 2, y - this.size / 2, this.size, this.size);
+                ctx.shadowBlur = 0;
             }
         }
 
@@ -191,8 +174,8 @@ const NeuralNetwork = () => {
                         node1.connections.push(node2);
                         node2.connections.push(node1);
 
-                        // Randomly create pulses
-                        if (Math.random() < 0.002) {
+                        // Randomly create pulses (frequent data bursts)
+                        if (Math.random() < 0.005) {
                             pulsesRef.current.push(new Pulse(node1, node2));
                         }
 
@@ -209,26 +192,28 @@ const NeuralNetwork = () => {
                     const dx = node2.x - node1.x;
                     const dy = node2.y - node1.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
-                    const opacity = (1 - distance / config.connectionDistance) * 0.3;
+                    const opacity = (1 - distance / config.connectionDistance) * 0.2; // Lower opacity for lines
 
-                    const gradient = ctx.createLinearGradient(node1.x, node1.y, node2.x, node2.y);
-                    gradient.addColorStop(0, node1.color + Math.floor(opacity * 255).toString(16).padStart(2, '0'));
-                    gradient.addColorStop(1, node2.color + Math.floor(opacity * 255).toString(16).padStart(2, '0'));
-
-                    ctx.strokeStyle = gradient;
-                    ctx.lineWidth = 1;
+                    ctx.strokeStyle = node1.color;
+                    ctx.globalAlpha = opacity;
+                    ctx.lineWidth = 0.5; // Thin tech lines
                     ctx.beginPath();
                     ctx.moveTo(node1.x, node1.y);
                     ctx.lineTo(node2.x, node2.y);
                     ctx.stroke();
+                    ctx.globalAlpha = 1.0;
                 });
             });
         };
 
         // Animation loop
         const animate = () => {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, width, height);
+            ctx.clearRect(0, 0, width, height);
+
+            // Optional: Draw faint grid background for extra "tech" feel
+            // ctx.strokeStyle = colors.grid;
+            // ctx.lineWidth = 1;
+            // ... grid logic if desired ...
 
             // Update and draw connections
             updateConnections();
@@ -268,7 +253,7 @@ const NeuralNetwork = () => {
         <canvas
             ref={canvasRef}
             className="absolute inset-0 w-full h-full"
-            style={{ opacity: 0.6 }}
+            style={{ opacity: 0.8 }} // Increased opacity for neon headers
         />
     );
 };
