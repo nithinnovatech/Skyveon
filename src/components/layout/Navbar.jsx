@@ -37,23 +37,17 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16 md:h-20">
                     {/* Logo */}
-                    <Link to="/" className="flex items-center space-x-3 group">
+                    <Link to="/" className="flex items-center group">
                         <motion.div
                             whileHover={{ scale: 1.05 }}
-                            className="flex items-center relative"
+                            className="flex items-center relative bg-white rounded-xl p-2 shadow-lg"
                         >
-                            {/* Glow effect behind logo */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-primary-500/30 via-secondary-500/30 to-primary-500/30 blur-xl rounded-full scale-150 opacity-60"></div>
                             <img
                                 src="/images/skyveon-logo.png"
                                 alt="Skyveon"
-                                className="h-16 md:h-20 w-auto relative z-10 drop-shadow-[0_0_15px_rgba(255,100,50,0.5)]"
+                                className="h-20 md:h-24 w-auto"
                             />
                         </motion.div>
-                        <span className="text-xl md:text-2xl font-bold tracking-tight">
-                            <span className="text-white">Sky</span>
-                            <span className="gradient-text">veon</span>
-                        </span>
                     </Link>
 
                     {/* Desktop Navigation */}
