@@ -40,12 +40,14 @@ const Navbar = () => {
                     <Link to="/" className="flex items-center space-x-3 group">
                         <motion.div
                             whileHover={{ scale: 1.05 }}
-                            className="flex items-center"
+                            className="flex items-center relative"
                         >
+                            {/* Glow effect behind logo */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-primary-500/30 via-secondary-500/30 to-primary-500/30 blur-xl rounded-full scale-150 opacity-60"></div>
                             <img
                                 src="/images/skyveon-logo.png"
                                 alt="Skyveon"
-                                className="h-12 md:h-16 w-auto"
+                                className="h-16 md:h-20 w-auto relative z-10 drop-shadow-[0_0_15px_rgba(255,100,50,0.5)]"
                             />
                         </motion.div>
                         <span className="text-xl md:text-2xl font-bold tracking-tight">

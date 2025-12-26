@@ -85,18 +85,20 @@ const AICharacter = ({ size = 'md' }) => {
 
             </motion.div>
 
-            {/* Glow Effect */}
+            {/* Glow Effect - Enhanced for visibility */}
             <motion.div
                 animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.3, 0.5, 0.3],
+                    scale: [1, 1.3, 1],
+                    opacity: [0.5, 0.8, 0.5],
                 }}
                 transition={{
                     duration: 2,
                     repeat: Infinity,
                 }}
-                className="absolute inset-0 bg-gradient-to-br from-orange-400 to-orange-500 rounded-full blur-md -z-10"
+                className="absolute inset-0 bg-gradient-to-br from-orange-400 via-orange-500 to-red-500 rounded-full blur-xl -z-10"
             />
+            {/* Outer ring glow for extra visibility */}
+            <div className="absolute inset-[-4px] rounded-2xl bg-gradient-to-r from-orange-500/50 to-red-500/50 blur-md -z-10"></div>
         </div>
     );
 };
