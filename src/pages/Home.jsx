@@ -302,12 +302,12 @@ const Home = () => {
                         <motion.img
                             src="/src/assets/skyveon-logo.png"
                             alt="Skyveon Logo"
-                            className="w-[150px] md:w-[280px] lg:w-[350px] h-auto object-contain drop-shadow-2xl z-10"
+                            className="w-full max-w-[300px] md:max-w-[450px] lg:max-w-[550px] h-auto object-contain drop-shadow-2xl z-20 relative"
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.8, delay: 0.3 }}
                         />
-                        <div className="w-full h-[200px] md:h-[350px] lg:h-[400px] -mt-4 md:-mt-8">
+                        <div className="w-full h-[200px] md:h-[350px] lg:h-[400px] -mt-6 md:-mt-12 z-10">
                             <SplineScene
                                 scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
                                 className="w-full h-full"
