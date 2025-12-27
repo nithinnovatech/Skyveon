@@ -239,9 +239,9 @@ const Home = () => {
                     fill="#FF6B35"
                 />
 
-                <div className="flex flex-col lg:flex-row h-screen relative z-10">
+                <div className="flex flex-col lg:flex-row min-h-screen relative z-10">
                     {/* Left content */}
-                    <div className="flex-1 p-8 md:p-12 lg:p-16 relative z-10 flex flex-col justify-center">
+                    <div className="flex-1 p-6 pt-24 md:p-12 lg:p-16 relative z-10 flex flex-col justify-center">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -251,7 +251,7 @@ const Home = () => {
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.1 }}
-                                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-medium mb-6"
+                                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-medium mb-4 md:mb-6"
                             >
                                 <span className="relative flex h-2 w-2">
                                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
@@ -261,7 +261,7 @@ const Home = () => {
                             </motion.div>
 
                             <motion.h1
-                                className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-tight"
+                                className="text-3xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight"
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.2, duration: 0.8 }}
@@ -275,7 +275,7 @@ const Home = () => {
                             </motion.h1>
 
                             <motion.p
-                                className="mt-4 text-neutral-300 max-w-lg text-lg md:text-xl leading-relaxed"
+                                className="mt-2 md:mt-4 text-neutral-300 max-w-lg text-base md:text-xl leading-relaxed"
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.4, duration: 0.6 }}
@@ -288,7 +288,7 @@ const Home = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.6, duration: 0.6 }}
-                                className="mt-8"
+                                className="mt-6 md:mt-8"
                             >
                                 <Button variant="primary" onClick={handleScrollToEdge}>
                                     Why Skyveon? →
@@ -297,12 +297,22 @@ const Home = () => {
                         </motion.div>
                     </div>
 
-                    {/* Right content - Spline 3D */}
-                    <div className="flex-1 relative min-h-[400px] lg:min-h-0">
-                        <SplineScene
-                            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-                            className="w-full h-full"
+                    {/* Right content - Logo and Robot */}
+                    <div className="flex-1 relative min-h-[250px] md:min-h-[400px] lg:min-h-0 flex flex-col items-center justify-center">
+                        <motion.img
+                            src="/src/assets/skyveon-logo.png"
+                            alt="Skyveon Logo"
+                            className="w-[150px] md:w-[280px] lg:w-[350px] h-auto object-contain drop-shadow-2xl z-10"
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.8, delay: 0.3 }}
                         />
+                        <div className="w-full h-[200px] md:h-[350px] lg:h-[400px] -mt-4 md:-mt-8">
+                            <SplineScene
+                                scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                                className="w-full h-full"
+                            />
+                        </div>
                     </div>
                 </div>
 

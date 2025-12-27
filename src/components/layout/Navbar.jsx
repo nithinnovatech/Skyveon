@@ -40,12 +40,12 @@ const Navbar = () => {
                     <Link to="/" className="flex items-center group">
                         <motion.div
                             whileHover={{ scale: 1.05 }}
-                            className="flex items-center relative bg-white rounded-xl p-2 shadow-lg"
+                            className="flex items-center relative bg-white rounded-lg p-1.5 shadow-lg"
                         >
                             <img
                                 src="/images/skyveon-logo.png"
                                 alt="Skyveon"
-                                className="h-20 md:h-24 w-auto"
+                                className="h-10 md:h-12 w-auto"
                             />
                         </motion.div>
                     </Link>
