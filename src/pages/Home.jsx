@@ -9,6 +9,7 @@ import ContactForm from '../components/ui/ContactForm';
 import { SplineScene } from '../components/ui/SplineScene';
 import { Spotlight } from '../components/ui/Spotlight';
 import NeuralNetwork from '../components/ui/NeuralNetwork';
+import skyveonLogo from '../assets/skyveon-logo.png';
 
 const Home = () => {
     const handleScrollToEdge = () => {
@@ -300,7 +301,7 @@ const Home = () => {
                     {/* Right content - Logo and Robot */}
                     <div className="flex-1 relative min-h-[250px] md:min-h-[400px] lg:min-h-0 flex flex-col items-center justify-center">
                         <motion.img
-                            src="/src/assets/skyveon-logo.png"
+                            src={skyveonLogo}
                             alt="Skyveon Logo"
                             className="w-full max-w-[300px] md:max-w-[450px] lg:max-w-[550px] h-auto object-contain drop-shadow-2xl z-20 relative"
                             initial={{ opacity: 0, scale: 0.8 }}
