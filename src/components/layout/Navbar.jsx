@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import skyveonLogo from '../../assets/skyveon-logo.png';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);

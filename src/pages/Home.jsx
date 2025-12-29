@@ -248,10 +248,20 @@ const Home = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
                         >
+                            {/* Skyveon Logo on left side */}
+                            <motion.img
+                                src={skyveonLogo}
+                                alt="Skyveon - Solutions In Every Horizon"
+                                className="w-[200px] md:w-[280px] lg:w-[350px] h-auto object-contain drop-shadow-2xl mb-6 md:mb-8"
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.8, delay: 0.1 }}
+                            />
+
                             <motion.div
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.1 }}
+                                transition={{ delay: 0.2 }}
                                 className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-medium mb-4 md:mb-6"
                             >
                                 <span className="relative flex h-2 w-2">
@@ -265,7 +275,7 @@ const Home = () => {
                                 className="text-3xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight"
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2, duration: 0.8 }}
+                                transition={{ delay: 0.3, duration: 0.8 }}
                             >
                                 <span className="bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
                                     Engineering that{" "}
@@ -279,7 +289,7 @@ const Home = () => {
                                 className="mt-2 md:mt-4 text-neutral-300 max-w-lg text-base md:text-xl leading-relaxed"
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.4, duration: 0.6 }}
+                                transition={{ delay: 0.5, duration: 0.6 }}
                             >
                                 We design, build, and operate modern systems—apps, cloud foundations, data platforms,
                                 Workday & Salesforce, and pragmatic AI—engineered for reliability, security, and scale.
@@ -288,7 +298,7 @@ const Home = () => {
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.6, duration: 0.6 }}
+                                transition={{ delay: 0.7, duration: 0.6 }}
                                 className="mt-6 md:mt-8"
                             >
                                 <Button variant="primary" onClick={handleScrollToEdge}>
@@ -298,17 +308,10 @@ const Home = () => {
                         </motion.div>
                     </div>
 
-                    {/* Right content - Logo and Robot */}
+                    {/* Right content - Robot only */}
                     <div className="flex-1 relative min-h-[250px] md:min-h-[400px] lg:min-h-0 flex flex-col items-center justify-center">
-                        <motion.img
-                            src={skyveonLogo}
-                            alt="Skyveon Logo"
-                            className="w-full max-w-[300px] md:max-w-[450px] lg:max-w-[550px] h-auto object-contain drop-shadow-2xl z-20 relative"
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.8, delay: 0.3 }}
-                        />
-                        <div className="w-full h-[200px] md:h-[350px] lg:h-[400px] -mt-6 md:-mt-12 z-10">
+                        {/* Robot */}
+                        <div className="w-full h-[350px] md:h-[500px] lg:h-[550px] z-10">
                             <SplineScene
                                 scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
                                 className="w-full h-full"
