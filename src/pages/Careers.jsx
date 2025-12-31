@@ -473,9 +473,12 @@ const Careers = () => {
                             </div>
 
                             <div className="flex flex-col sm:flex-row gap-4">
-                                <button className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-colors">
+                                <a
+                                    href={`mailto:hr@skyveon.ai?subject=${encodeURIComponent(`Application for ${job.title}`)}&body=${encodeURIComponent(`Hi Skyveon Hiring Team,\n\nI'm applying for the ${job.title} role.\n\nBASICS\n* Full name:\n* Phone:\n* Current location (City, State):\n* Work authorization:\n\nLINKS\n* LinkedIn:\n* GitHub/Portfolio:\n\nEXPERIENCE SNAPSHOT\n* Years of experience:\n* Most recent employer / project:\n* Notice period / availability:\n\nPlease find my resume attached.\n\nThank you,`)}`}
+                                    className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-colors text-center"
+                                >
                                     Apply
-                                </button>
+                                </a>
                                 <p className="text-gray-400 text-sm self-center">
                                     Or email us directly at{' '}
                                     <a

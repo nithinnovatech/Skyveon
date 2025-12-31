@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import emailjs from '@emailjs/browser';
 import toast from 'react-hot-toast';
 
 const ContactForm = () => {
@@ -10,7 +9,6 @@ const ContactForm = () => {
         company: '',
         message: ''
     });
-    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -20,7 +18,7 @@ const ContactForm = () => {
         }));
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
         // Validation
@@ -36,41 +34,19 @@ const ContactForm = () => {
             return;
         }
 
-        setIsSubmitting(true);
+        // Build mailto link with prefilled subject and body
+        const toEmail = 'info@skyveon.ai';
+        const subject = `Contact Inquiry from ${formData.name}${formData.company ? ` - ${formData.company}` : ''}`;
+        const body = `Name: ${formData.name}
+Email: ${formData.email}
+${formData.company ? `Company: ${formData.company}\n` : ''}
+Message:
+${formData.message}`;
 
-        try {
-            // Import EmailJS config
-            // TODO: Update src/config/emailjs.config.js with your actual credentials
-            const { EMAILJS_CONFIG } = await import('../../config/emailjs.config.js');
+        const mailtoLink = `mailto:${toEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-            await emailjs.send(
-                EMAILJS_CONFIG.SERVICE_ID,
-                EMAILJS_CONFIG.TEMPLATE_ID,
-                {
-                    from_name: formData.name,
-                    from_email: formData.email,
-                    company: formData.company,
-                    message: formData.message,
-                    to_name: 'Skyveon Team'
-                },
-                EMAILJS_CONFIG.PUBLIC_KEY
-            );
-
-            toast.success('Message sent successfully! We\'ll get back to you soon.');
-
-            // Reset form
-            setFormData({
-                name: '',
-                email: '',
-                company: '',
-                message: ''
-            });
-        } catch (error) {
-            console.error('EmailJS Error:', error);
-            toast.error('Failed to send message. Please try again or contact us directly.');
-        } finally {
-            setIsSubmitting(false);
-        }
+        // Redirect to email client
+        window.location.href = mailtoLink;
     };
 
     return (
@@ -160,25 +136,11 @@ const ContactForm = () => {
                 {/* Submit Button */}
                 <motion.button
                     type="submit"
-                    disabled={isSubmitting}
-                    whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-                    whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-                    className={`w-full py-3 px-6 rounded-lg font-semibold text-white transition-all duration-300 ${isSubmitting
-                        ? 'bg-gray-600 cursor-not-allowed'
-                        : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg hover:shadow-blue-500/50'
-                        }`}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full py-3 px-6 rounded-lg font-semibold text-white transition-all duration-300 bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg hover:shadow-blue-500/50"
                 >
-                    {isSubmitting ? (
-                        <span className="flex items-center justify-center gap-2">
-                            <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                            </svg>
-                            Sending...
-                        </span>
-                    ) : (
-                        'Send Message'
-                    )}
+                    Send Message
                 </motion.button>
             </div>
 
